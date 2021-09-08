@@ -28,5 +28,10 @@ namespace RH.Dominio
             this.Tecnologias.AddRange(tecnologias);
         }
 
+        public void RemoveTecnologia(Tecnologia tecnologia)
+        {
+            this.Tecnologias.Remove(tecnologia);
+        }
+
     }
 }

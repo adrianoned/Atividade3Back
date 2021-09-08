@@ -68,15 +68,20 @@ namespace RH.Api.Controllers
 
         #region Create
         [HttpPost]
-        public Task<HttpResponseMessage> Post(TecnologiaVaga tecnologiaVaga)
+        [Route("api/raquearCandidatos")]
+        public Task<HttpResponseMessage> Post(List<TecnologiaVaga> lstTecnologiaVaga)
         {
             HttpResponseMessage response = new HttpResponseMessage();
 
             try
             {
-                _repository.Create(tecnologiaVaga);
+                foreach (var item in lstTecnologiaVaga)
+                {
+                    _repository.Create(item);
+                    
+                }
                 VagaCandidatoPontuacaoRepositorio obj = new VagaCandidatoPontuacaoRepositorio();
-                response = Request.CreateResponse(HttpStatusCode.Created, obj.getRankingCandidatoVaga(tecnologiaVaga.VagaId));
+                response = Request.CreateResponse(HttpStatusCode.Created, obj.getRankingCandidatoVaga(lstTecnologiaVaga[0].VagaId));
             }
             catch (Exception)
             {

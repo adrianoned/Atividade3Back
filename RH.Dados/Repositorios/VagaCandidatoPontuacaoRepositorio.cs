@@ -16,6 +16,7 @@ namespace RH.Dados.Repositorios
             this._db = new RHDataContext();
         }
 
+       
         public VagaCandidatoPontuacao getRankingCandidatoVaga(int id)
         {
             VagaCandidatoPontuacao objVagaCandidatoPontuacao = new VagaCandidatoPontuacao();

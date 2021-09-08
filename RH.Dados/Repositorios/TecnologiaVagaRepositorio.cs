@@ -26,27 +26,36 @@ namespace RH.Dados.Repositorios
 
         public TecnologiaVaga Get(int id)
         {
-            return _db.TecnologiaVagas.First(x=>x.VagaId == id);
+            return _db.TecnologiaVagas.First(x => x.VagaId == id);
         }
 
         public void Create(TecnologiaVaga entity)
         {
-            if(_db.TecnologiaVagas.Any(x=> x.TecnologiaId == entity.TecnologiaId && x.VagaId == entity.VagaId))
+            entity.Vaga = _db.Vagas.Find(entity.VagaId);
+            entity.Tecnologia = _db.Tecnologias.Find(entity.TecnologiaId);
+
+            if (_db.TecnologiaVagas.Any(x => x.TecnologiaId == entity.TecnologiaId && x.VagaId == entity.VagaId))
             {
                 this.Update(entity);
             }
             else
             {
+
                 _db.TecnologiaVagas.Add(entity);
                 _db.SaveChanges();
+
+
             }
-           
+
         }
 
         public void Update(TecnologiaVaga entity)
         {
+
             _db.Entry<TecnologiaVaga>(entity).State = EntityState.Modified;
             _db.SaveChanges();
+
+
         }
 
         public void Delete(int id)
